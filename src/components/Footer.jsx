@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="footer-section">
             <h3>Credits</h3>
             <p>
-              Created by Princess Mae Delos Santos, Mara Joy Lontok, Rain Lyrra Panganiban, and Jude Tadeja
+              Created by Homer Calalo, Princess Mae Delos Santos, Alessandra Marie Landicho, Mara Joy Lontok, Kent Melard D. Pagcaliuangan, Rain Lyrra Panganiban, and Jude Tadeja
             </p>
           </div>
         </div>

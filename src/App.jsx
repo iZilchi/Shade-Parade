@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Notification from './components/Notification';
@@ -5,6 +6,7 @@ import ColorPicker from './components/ColorPicker';
 import ColorInput from './components/ColorInput';
 import ColorDisplay from './components/ColorDisplay';
 import ColorSuggestions from './components/ColorSuggestions';
+import AIColorGenerator from './components/AIColorGenerator';
 import SortButtons from './components/SortButtons';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
@@ -54,7 +56,6 @@ const App = () => {
 
     hexCodes.forEach(code => {
       if (validateHexCode(code)) {
-        // Ensure hex code has # prefix
         const formattedColor = code.startsWith('#') ? code : `#${code}`;
         validColors.push(formattedColor);
       } else {
@@ -197,7 +198,7 @@ const App = () => {
           onClose={() => setNotification(null)} 
         />
         
-        <div className="grid grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           <ColorPicker 
             palette={palette}
             setPalette={setPalette}
@@ -211,6 +212,12 @@ const App = () => {
             onUpdateColors={handleUpdateColors}
             onSavePalette={handleSavePalette}
           />
+          
+          <AIColorGenerator 
+            showNotification={showNotification}
+            onApply={handleApplySuggestions}
+            onSave={handleSaveSuggestions}
+          />
         </div>
 
         {colors.length > 0 && (
@@ -219,7 +226,7 @@ const App = () => {
               <ColorDisplay colors={colors} sorting={sorting} />
             </div>
             
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <SortButtons onSort={handleSort} />
               <ColorSuggestions 
                 colors={colors}

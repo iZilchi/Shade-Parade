@@ -1,4 +1,4 @@
-/* src/App.css */
+
 
 /* Reset and Base Styles */
 * {
@@ -60,8 +60,15 @@ body {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 @media (max-width: 1024px) {
   .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .grid-cols-3 {
     grid-template-columns: 1fr;
   }
 }
@@ -158,6 +165,12 @@ body {
 
 .input::placeholder {
   color: #9ca3af;
+}
+
+textarea.input {
+  min-height: 80px;
+  resize: vertical;
+  font-family: inherit;
 }
 
 /* Button Styles */
@@ -518,6 +531,10 @@ body {
   flex: 1;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .items-center {
   align-items: center;
 }
@@ -548,6 +565,14 @@ body {
 
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mt-4 {
@@ -596,6 +621,10 @@ body {
 
 .shadow-lg {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.space-y-1 > * + * {
+  margin-top: 0.25rem;
 }
 
 /* Animations */
@@ -698,14 +727,6 @@ body {
   display: grid;
 }
 
-.grid-cols-1 {
-  grid-template-columns: 1fr;
-}
-
-.grid-cols-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
 .gap-8 {
   gap: 2rem;
 }
@@ -719,6 +740,10 @@ body {
   .grid-cols-2 {
     grid-template-columns: 1fr;
   }
+  
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -729,4 +754,115 @@ body {
   .mb-8 {
     margin-bottom: 1.5rem;
   }
+}
+
+/* AI Generator Specific Styles */
+.ai-generated-palette {
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+}
+
+.color-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  opacity: 0.9;
+}
+
+/* 三列网格布局 */
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 提示文本样式 */
+.prompt-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.prompt-example {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.prompt-example:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+/* 文本区域样式 */
+textarea.input {
+  min-height: 80px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* AI生成按钮特殊样式 */
+.btn-ai {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.btn-ai:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  transform: translateY(-1px);
+}
+
+/* 为AI生成的颜色添加特殊边框 */
+.ai-color-swatch {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-color-swatch::after {
+  content: 'AI';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  font-size: 0.5rem;
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+/* 加载动画增强 */
+.loading-spinner {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 2px solid white;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Opacity utilities */
+.opacity-90 {
+  opacity: 0.9;
 }
