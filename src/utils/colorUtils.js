@@ -52,20 +52,16 @@ export const getColorForPalette = (palette, slice, ring, numSlices, numRings) =>
   }
 };
 
-// REAL FREE AI APIs THAT WORK WITH CORS
 export const generateColorsFromAI = async (prompt) => {
   console.log('🔍 AI Request for prompt:', prompt);
   
   try {
-    // API 1: Color API (CORS-enabled, free, no key needed)
     try {
       console.log('🎨 Trying Color API...');
       
-      // Extract a base color from prompt
       const baseColor = getBaseColorFromPrompt(prompt);
       const hex = baseColor.replace('#', '');
       
-      // Use Color API with different modes based on prompt
       let mode = 'analogic';
       const lowerPrompt = prompt.toLowerCase();
       
@@ -96,12 +92,10 @@ export const generateColorsFromAI = async (prompt) => {
     } catch (colorApiError) {
       console.log('Color API failed:', colorApiError);
     }
-    
-    // API 2: HueTools API (CORS-enabled, free)
+
     try {
       console.log('🌈 Trying HueTools API...');
       
-      // HueTools requires a different approach
       const encodedPrompt = encodeURIComponent(prompt);
       const response = await fetch(
         `https://hue.tools/generate?format=json&query=${encodedPrompt}`
@@ -113,7 +107,6 @@ export const generateColorsFromAI = async (prompt) => {
         
         if (data.colors && data.colors.length > 0) {
           const colors = data.colors.map(color => {
-            // Convert RGB to hex if needed
             if (color.startsWith('rgb')) {
               const rgb = color.match(/\d+/g);
               return `#${parseInt(rgb[0]).toString(16).padStart(2, '0')}${parseInt(rgb[1]).toString(16).padStart(2, '0')}${parseInt(rgb[2]).toString(16).padStart(2, '0')}`;
@@ -129,11 +122,9 @@ export const generateColorsFromAI = async (prompt) => {
       console.log('HueTools API failed:', hueError);
     }
     
-    // API 3: Colormind API with CORS proxy
     try {
       console.log('🧠 Trying Colormind API with proxy...');
       
-      // Use a public CORS proxy for Colormind
       const proxyUrl = 'https://api.allorigins.win/raw?url=';
       const colormindUrl = 'http://colormind.io/api/';
       
@@ -141,7 +132,6 @@ export const generateColorsFromAI = async (prompt) => {
         model: 'default'
       };
       
-      // If we can extract a color from prompt, use it
       const baseColor = getBaseColorFromPrompt(prompt);
       if (baseColor) {
         const rgb = hexToRgb(baseColor);
@@ -172,7 +162,6 @@ export const generateColorsFromAI = async (prompt) => {
       console.log('Colormind API failed:', colormindError);
     }
     
-    // If all APIs fail, use enhanced local generation
     console.log('⚠️ All external APIs failed, using enhanced local generation');
     return generateEnhancedLocalColors(prompt);
     
@@ -182,13 +171,11 @@ export const generateColorsFromAI = async (prompt) => {
   }
 };
 
-// Enhanced local generation as fallback
 const generateEnhancedLocalColors = (prompt) => {
   console.log('🎨 Using enhanced local generation for:', prompt);
   
   const keywords = prompt.toLowerCase();
   
-  // More comprehensive color mapping
   const colorThemes = {
     'dark': ['#2C3E50', '#34495E', '#2F4F4F', '#1C2833', '#212F3D'],
     'light': ['#FFFFFF', '#F8F9FA', '#E9ECEF', '#DEE2E6', '#CED4DA'],
@@ -213,7 +200,6 @@ const generateEnhancedLocalColors = (prompt) => {
     'energetic': ['#FF4500', '#FFD700', '#32CD32', '#FF1493', '#00CED1'],
   };
   
-  // Check for keywords
   for (const [key, colors] of Object.entries(colorThemes)) {
     if (keywords.includes(key)) {
       console.log(`✅ Local: Found theme "${key}"`);
@@ -221,7 +207,6 @@ const generateEnhancedLocalColors = (prompt) => {
     }
   }
   
-  // Generate based on text
   const hash = prompt.split('').reduce((acc, char) => {
     return char.charCodeAt(0) + ((acc << 5) - acc);
   }, 0);
@@ -237,7 +222,6 @@ const generateEnhancedLocalColors = (prompt) => {
   return colors;
 };
 
-// Get base color from prompt
 const getBaseColorFromPrompt = (prompt) => {
   const keywords = prompt.toLowerCase();
   
@@ -281,18 +265,15 @@ const getBaseColorFromPrompt = (prompt) => {
     'energetic': '#FF4500',
   };
   
-  // Check for keywords
   for (const [key, color] of Object.entries(colorMap)) {
     if (keywords.includes(key)) {
       return color;
     }
   }
   
-  // Default color
   return '#3498DB';
 };
 
-// Get color names from free API
 export const getColorNamesFromAPI = async (color) => {
   try {
     const hex = color.replace('#', '');
