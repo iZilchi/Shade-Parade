@@ -108,7 +108,6 @@ const App = () => {
       console.log('User data loaded from Firestore');
     } catch (error) {
       console.error('Error loading user data:', error);
-      showNotification('Failed to load cloud data', 'warning');
     }
   };
 
