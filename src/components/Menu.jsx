@@ -106,34 +106,6 @@ const Menu = ({
               Download
             </button>
           </div>
-
-          <h2 className="card-title">Sort History</h2>
-          
-          <div className="mb-6">
-            {sortHistory.map((entry, i) => (
-              <div key={i} className="palette-item">
-                <div className="text-sm font-medium mb-2">
-                  {entry.algorithm} sort by {entry.sortBy}
-                </div>
-                <div className="palette-colors">
-                  {entry.colors.map((c, j) => (
-                    <div
-                      key={j}
-                      style={{ backgroundColor: c }}
-                      className="palette-color"
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <button 
-            onClick={onClearHistory}
-            className="btn btn-secondary w-full"
-          >
-            Clear History
-          </button>
          
         </div>
       )}
