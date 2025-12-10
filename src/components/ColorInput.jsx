@@ -22,7 +22,7 @@ const ColorInput = ({ inputValue, setInputValue, onUpdateColors, onSavePalette }
           onClick={onSavePalette}
           className="btn btn-success flex-1"
         >
-          Save Palette
+          Save to Cloud
         </button>
       </div>
     </div>

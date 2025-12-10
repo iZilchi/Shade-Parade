@@ -59,6 +59,7 @@ const ColorSuggestions = ({ colors, showNotification, onApply, onSave }) => {
   };
 
   const handleSave = () => {
+    // Save to Firestore only
     onSave(suggestions);
     setSuggestions([]);
   };
@@ -121,7 +122,7 @@ const ColorSuggestions = ({ colors, showNotification, onApply, onSave }) => {
               onClick={handleSave}
               className="btn btn-primary flex-1"
             >
-              Save to Palettes
+              Save to Cloud
             </button>
             <button 
               onClick={() => setSuggestions([])}

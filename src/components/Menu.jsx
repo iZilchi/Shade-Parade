@@ -134,6 +134,7 @@ const Menu = ({
           >
             Clear History
           </button>
+         
         </div>
       )}
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { generateColorsFromAI, getColorNamesFromAPI } from '../utils/colorUtils';
 
-const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
+const AIColorGenerator = ({ showNotification, onApply, onSave, currentUser }) => {
   const [prompt, setPrompt] = useState('');
   const [aiColors, setAiColors] = useState([]);
   const [colorNames, setColorNames] = useState([]);
@@ -27,6 +27,7 @@ const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
       if (colors && colors.length > 0) {
         setAiColors(colors);
         
+        // Get color names
         const names = await Promise.all(
           colors.map(color => getColorNamesFromAPI(color))
         );
@@ -69,7 +70,8 @@ const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
   };
 
   const handleSave = () => {
-    onSave(aiColors);
+    // Call the save function that ONLY uses Firestore
+    onSave(aiColors, prompt);
     setAiColors([]);
     setColorNames([]);
     setApiStatus('');
@@ -109,6 +111,7 @@ const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
         
         <div className="text-xs text-gray-600 mt-2">
           <strong>Status:</strong> {apiStatus || 'Ready'}
+          {currentUser && <span className="ml-2 text-green-600">• Cloud Save Enabled</span>}
         </div>
       </div>
       
@@ -154,6 +157,11 @@ const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
                 </div>
               ))}
             </div>
+            {prompt && (
+              <div className="text-xs text-gray-500 mt-2">
+                <strong>Prompt:</strong> "{prompt}"
+              </div>
+            )}
           </div>
           
           <div className="flex gap-2">
@@ -167,7 +175,7 @@ const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
               onClick={handleSave}
               className="btn btn-primary flex-1"
             >
-              Save Palette
+              Save to Cloud
             </button>
             <button 
               onClick={() => {
@@ -193,6 +201,11 @@ const AIColorGenerator = ({ showNotification, onApply, onSave }) => {
             <li>"vibrant triadic" - three vibrant colors</li>
             <li>"pastel monochromatic" - soft single-hue palette</li>
           </ul>
+          {currentUser && (
+            <div className="mt-4 p-2 bg-blue-50 rounded text-xs text-blue-700">
+              💡 AI-generated palettes will be saved to your cloud account
+            </div>
+          )}
         </div>
       )}
     </div>
